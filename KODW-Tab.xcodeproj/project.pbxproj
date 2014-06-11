@@ -227,6 +227,11 @@
 				TargetAttributes = {
 					D1FEFBF01948850600812949 = {
 						CreatedOnToolsVersion = 6.0;
+						SystemCapabilities = {
+							com.apple.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					D1FEFC091948850600812949 = {
 						CreatedOnToolsVersion = 6.0;

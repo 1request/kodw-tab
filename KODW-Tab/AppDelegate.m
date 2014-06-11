@@ -116,6 +116,12 @@
     notification.soundName = UILocalNotificationDefaultSoundName;
     notification.regionTriggersOnce = YES;
     
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    }
+    
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
