@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Beacon.h"
+
 static NSString * const mobileAddress = @"http://www.homesmartly.com";
 static NSString * const apiAddress = @"http://api.homesmartly.com";
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, BeaconNotificationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) Beacon *beacon;
 
 @end
 

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1541F151948B4260069602E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1541F141948B4260069602E /* CoreLocation.framework */; };
+		D1541F171948B42E0069602E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1541F161948B42E0069602E /* CoreBluetooth.framework */; };
+		D1541F191948B4380069602E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1541F181948B4380069602E /* Foundation.framework */; };
+		D1541F201948B4910069602E /* Beacon.m in Sources */ = {isa = PBXBuildFile; fileRef = D1541F1F1948B4910069602E /* Beacon.m */; };
+		D1541F221948B4F80069602E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1541F211948B4F80069602E /* UIKit.framework */; };
+		D1541F241948B5120069602E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1541F231948B5120069602E /* CoreGraphics.framework */; };
 		D1FEFBF71948850600812949 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FEFBF61948850600812949 /* main.m */; };
 		D1FEFBFA1948850600812949 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FEFBF91948850600812949 /* AppDelegate.m */; };
 		D1FEFBFD1948850600812949 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FEFBFC1948850600812949 /* FirstViewController.m */; };
@@ -27,6 +33,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D1541F141948B4260069602E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D1541F161948B42E0069602E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		D1541F181948B4380069602E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D1541F1E1948B4910069602E /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
+		D1541F1F1948B4910069602E /* Beacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beacon.m; sourceTree = "<group>"; };
+		D1541F211948B4F80069602E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D1541F231948B5120069602E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D1FEFBF11948850600812949 /* KODW-Tab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KODW-Tab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1FEFBF51948850600812949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1FEFBF61948850600812949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -48,6 +61,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1541F241948B5120069602E /* CoreGraphics.framework in Frameworks */,
+				D1541F221948B4F80069602E /* UIKit.framework in Frameworks */,
+				D1541F191948B4380069602E /* Foundation.framework in Frameworks */,
+				D1541F171948B42E0069602E /* CoreBluetooth.framework in Frameworks */,
+				D1541F151948B4260069602E /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,11 +79,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D1541F1A1948B46B0069602E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1541F231948B5120069602E /* CoreGraphics.framework */,
+				D1541F211948B4F80069602E /* UIKit.framework */,
+				D1541F181948B4380069602E /* Foundation.framework */,
+				D1541F161948B42E0069602E /* CoreBluetooth.framework */,
+				D1541F141948B4260069602E /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D1541F1B1948B4910069602E /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				D1541F1C1948B4910069602E /* include */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		D1541F1C1948B4910069602E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D1541F1D1948B4910069602E /* Beacon */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		D1541F1D1948B4910069602E /* Beacon */ = {
+			isa = PBXGroup;
+			children = (
+				D1541F1E1948B4910069602E /* Beacon.h */,
+				D1541F1F1948B4910069602E /* Beacon.m */,
+			);
+			path = Beacon;
+			sourceTree = "<group>";
+		};
 		D1FEFBE81948850600812949 = {
 			isa = PBXGroup;
 			children = (
 				D1FEFBF31948850600812949 /* KODW-Tab */,
 				D1FEFC0D1948850600812949 /* KODW-TabTests */,
+				D1541F1A1948B46B0069602E /* Frameworks */,
 				D1FEFBF21948850600812949 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,6 +138,7 @@
 		D1FEFBF31948850600812949 /* KODW-Tab */ = {
 			isa = PBXGroup;
 			children = (
+				D1541F1B1948B4910069602E /* lib */,
 				D1FEFBF81948850600812949 /* AppDelegate.h */,
 				D1FEFBF91948850600812949 /* AppDelegate.m */,
 				D1FEFBFB1948850600812949 /* FirstViewController.h */,
@@ -222,6 +279,7 @@
 			files = (
 				D1FEFC001948850600812949 /* SecondViewController.m in Sources */,
 				D1FEFBFA1948850600812949 /* AppDelegate.m in Sources */,
+				D1541F201948B4910069602E /* Beacon.m in Sources */,
 				D1FEFBFD1948850600812949 /* FirstViewController.m in Sources */,
 				D1FEFBF71948850600812949 /* main.m in Sources */,
 			);

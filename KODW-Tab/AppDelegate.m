@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 
+#define kRequestActivity @"/collectionapi/logs"
+#define kRequestMember @"/collectionapi/members"
+
 @interface AppDelegate ()
             
 
@@ -18,6 +21,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.beacon = [Beacon new];
+    self.beacon.delegate = self;
+    if ([self.beacon respondsToSelector:@selector(startMonitorBeacon:major:minor:)]) {
+        [self.beacon startMonitorBeacon:kUUID_Estimote major:1000 minor:2000];
+    }
+    
+    [AppDelegate registerDevice];
+    
     return YES;
 }
 
@@ -41,6 +52,153 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - beacon delegate methods
+
+- (void)NotifyWhenEntryBeacon:(CLBeaconRegion *)beaconRegion
+{
+    
+    
+    NSString *tip = @"Welcome to HKDC !";
+    
+    if ([beaconRegion.minor integerValue] == 2000) {
+        
+        tip = @"Today's Event : KODW Workshop ";
+    }else if ([beaconRegion.minor integerValue] == 2001) {
+        
+        tip = @"Happy Hour Today ";
+    }
+    
+    tip = [NSString stringWithFormat:@"Welcome! major: %@ / minor: %@", beaconRegion.major, beaconRegion.minor];
+    
+    [self sendLocalNotificationWithMessage:tip];
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Entry" object:nil];
+    
+    NSLog(@"detect beacon %@", beaconRegion);
+    
+    [AppDelegate sendData:[beaconRegion proximityUUID] major:[beaconRegion major] minor:[beaconRegion minor]];
+}
+
+- (void)NotifyWhenExitBeacon:(CLBeaconRegion *)beaconRegion
+{
+    NSString *tip = @"Goodbye, See you next time!";
+    
+    if ([beaconRegion.minor integerValue] == 2000) {
+        
+        tip = @"Today's Event : KODW Conference ";
+    }else if ([beaconRegion.minor integerValue] == 2001) {
+        
+        tip = @"Don't Forget Happy Hour Today :) ";
+    }
+    
+    
+    [self sendLocalNotificationWithMessage:tip];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Exit" object:nil];
+    
+    NSLog(@"detect beacon %@", beaconRegion);
+}
+
+
+#pragma mark - Local notifications
+- (void)sendLocalNotificationWithMessage:(NSString*)message
+{
+    UILocalNotification *notification = [UILocalNotification new];
+    
+    // Notification details
+    notification.alertBody = message;
+    // notification.alertBody = [NSString stringWithFormat:@"Entered beacon region for UUID: %@",
+    //                         region.proximityUUID.UUIDString];   // Major and minor are not available at the monitoring stage
+    notification.alertAction = NSLocalizedString(@"View Details", nil);
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.regionTriggersOnce = YES;
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
++ (void)sendData:(NSUUID *)beaconId major:(NSNumber *)kMajor minor:(NSNumber *)kMinor
+{
+    NSLog(@"sending data...");
+    
+    NSNumber *time = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
+    
+    NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    NSArray *objects = [NSArray arrayWithObjects:[beaconId UUIDString], [kMajor stringValue], [kMinor stringValue], deviceId, time, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"uuid", @"major", @"minor", @"deviceId", @"time", nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                          options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                            error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"jsonRequest is %@", jsonString);
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", apiAddress, kRequestActivity]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    if (connection) {
+        [connection start];
+    }
+    
+}
+
++ (void)registerDevice
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"done"]) {
+        return;
+    }
+    
+    NSLog(@"registering first time...");
+    
+    NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    NSArray *objects = [NSArray arrayWithObjects:@"jdFYjuCqWyCdrywPT", deviceId, deviceId, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"appId", @"username", @"deviceId", nil];
+    NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                          options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                            error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"jsonRequest is %@", jsonString);
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", apiAddress, kRequestMember]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    if (connection) {
+        [connection start];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"true" forKey:@"done"];
+    
 }
 
 @end
