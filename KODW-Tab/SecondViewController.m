@@ -18,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSLog(@"deviceId: %@", deviceId);
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 519)];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.0.110:8080"]]];
+    
+    [self.view addSubview:self.webView];
 }
 
 - (void)didReceiveMemoryWarning {

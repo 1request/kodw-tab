@@ -410,6 +410,7 @@
 				D1FEFC161948850600812949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D1FEFC171948850600812949 /* Build configuration list for PBXNativeTarget "KODW-TabTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +419,7 @@
 				D1FEFC191948850600812949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

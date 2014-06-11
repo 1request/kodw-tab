@@ -10,6 +10,7 @@
 
 @interface FirstViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end
 
