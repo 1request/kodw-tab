@@ -60,17 +60,16 @@
 {
     
     
-    NSString *tip = @"Welcome to HKDC !";
+    NSString *tip = @"Thanks for using KODW App!";
     
-    if ([beaconRegion.minor integerValue] == 2000) {
+    if ([beaconRegion.major integerValue] == 11) {
         
-        tip = @"Today's Event : KODW Workshop ";
-    }else if ([beaconRegion.minor integerValue] == 2001) {
+        tip = @"Today's Event : KODW Conference";
         
-        tip = @"Happy Hour Today ";
+    } else if ([beaconRegion.major integerValue] == 8 || [beaconRegion.major integerValue] == 9) {
+        
+        tip = @"Welcome to Garage Society!";
     }
-    
-    tip = [NSString stringWithFormat:@"Welcome! major: %@ / minor: %@", beaconRegion.major, beaconRegion.minor];
     
     [self sendLocalNotificationWithMessage:tip];
     
@@ -86,10 +85,11 @@
 {
     NSString *tip = @"Goodbye, See you next time!";
     
-    if ([beaconRegion.minor integerValue] == 2000) {
+    if ([beaconRegion.minor integerValue] == 7102) {
         
-        tip = @"Today's Event : KODW Conference ";
-    }else if ([beaconRegion.minor integerValue] == 2001) {
+        tip = @"Thank you for visiting Garage Society!";
+        
+    } else if ([beaconRegion.minor integerValue] == 62353) {
         
         tip = @"Don't Forget Happy Hour Today :) ";
     }
