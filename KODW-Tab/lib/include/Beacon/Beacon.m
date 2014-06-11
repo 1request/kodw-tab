@@ -130,10 +130,6 @@
     
     [self createBeaconRegion:uuid major:kMajor minor:kMinor];
     
-    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-        [self.locationManager requestAlwaysAuthorization];
-    }
-    
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
     
     [self.locationManager startMonitoringForRegion:self.beaconRegion1];
@@ -178,7 +174,7 @@
         NSLog(@"Couldn't turn on monitoring: Location services not authorised.");
     }
     
-    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways) {
+    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
         NSLog(@"Couldn't turn on monitoring: Location services (Always) not authorised.");
         return;
     }
@@ -247,7 +243,6 @@
                               region.proximityUUID.UUIDString];   // Major and minor are not available at the monitoring stage
     notification.alertAction = NSLocalizedString(@"View Details", nil);
     notification.soundName = UILocalNotificationDefaultSoundName;
-    notification.regionTriggersOnce = YES;
     
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
