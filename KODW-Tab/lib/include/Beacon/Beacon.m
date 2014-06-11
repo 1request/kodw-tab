@@ -20,6 +20,11 @@
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion4;
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion5;
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion6;
+@property (nonatomic, strong) CLBeaconRegion *beaconRegion11;
+@property (nonatomic, strong) CLBeaconRegion *beaconRegion12;
+@property (nonatomic, strong) CLBeaconRegion *beaconRegion13;
+@property (nonatomic, strong) CLBeaconRegion *beaconRegion14;
+@property (nonatomic, strong) CLBeaconRegion *beaconRegion15;
 
 
 @end
@@ -74,6 +79,31 @@
     self.beaconRegion6.notifyOnEntry = YES;
     self.beaconRegion6.notifyOnExit = YES;
     
+    self.beaconRegion11 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10  minor:11 identifier:@"beacon11"];
+    self.beaconRegion11.notifyEntryStateOnDisplay = YES;
+    self.beaconRegion11.notifyOnEntry = YES;
+    self.beaconRegion11.notifyOnExit = YES;
+    
+    self.beaconRegion12 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10  minor:12 identifier:@"beacon12"];
+    self.beaconRegion12.notifyEntryStateOnDisplay = YES;
+    self.beaconRegion12.notifyOnEntry = YES;
+    self.beaconRegion12.notifyOnExit = YES;
+    
+    self.beaconRegion13 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10  minor:13 identifier:@"beacon13"];
+    self.beaconRegion13.notifyEntryStateOnDisplay = YES;
+    self.beaconRegion13.notifyOnEntry = YES;
+    self.beaconRegion13.notifyOnExit = YES;
+    
+    self.beaconRegion14 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10  minor:14 identifier:@"beacon14"];
+    self.beaconRegion14.notifyEntryStateOnDisplay = YES;
+    self.beaconRegion14.notifyOnEntry = YES;
+    self.beaconRegion14.notifyOnExit = YES;
+    
+    self.beaconRegion15 = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:10  minor:15 identifier:@"beacon15"];
+    self.beaconRegion15.notifyEntryStateOnDisplay = YES;
+    self.beaconRegion15.notifyOnEntry = YES;
+    self.beaconRegion15.notifyOnExit = YES;
+    
     
 }
 
@@ -100,7 +130,9 @@
     
     [self createBeaconRegion:uuid major:kMajor minor:kMinor];
     
-    [self.locationManager requestAlwaysAuthorization];
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
     
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
     
@@ -111,6 +143,11 @@
     [self.locationManager startMonitoringForRegion:self.beaconRegion5];
     [self.locationManager startMonitoringForRegion:self.beaconRegion6];
     
+    [self.locationManager startMonitoringForRegion:self.beaconRegion11];
+    [self.locationManager startMonitoringForRegion:self.beaconRegion12];
+    [self.locationManager startMonitoringForRegion:self.beaconRegion13];
+    [self.locationManager startMonitoringForRegion:self.beaconRegion14];
+    [self.locationManager startMonitoringForRegion:self.beaconRegion15];
     
 }
 
