@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+static NSString * const mobileAddress = @"http://www.homesmartly.com";
+static NSString * const apiAddress = @"http://api.homesmartly.com";
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
