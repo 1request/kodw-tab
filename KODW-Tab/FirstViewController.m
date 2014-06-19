@@ -21,8 +21,17 @@
     // Do any additional setup after loading the view, typically from a nib.
     NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"deviceId: %@", deviceId);
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 519)];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mobile.kodw.org/"]]];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenHeight = screenRect.size.height;
+    CGRect rect;
+    if (screenHeight <= 480.0)
+        rect = CGRectMake(0, 0, 320, 431);
+    else
+        rect = CGRectMake(0, 0, 320, 519);
+    
+    self.webView = [[UIWebView alloc] initWithFrame:rect];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://kodw-ios.homesmartly.com/"]]];
     
     
 //    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"html"];
