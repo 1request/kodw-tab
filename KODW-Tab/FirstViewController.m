@@ -22,7 +22,7 @@
     NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"deviceId: %@", deviceId);
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 519)];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mobile.kodw.org/"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://kodw-ios.homesmartly.com/"]]];
     
     
 //    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"html"];
