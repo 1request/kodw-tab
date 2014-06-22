@@ -11,6 +11,7 @@
 
 static NSString * const mobileAddress = @"http://www.homesmartly.com";
 static NSString * const apiAddress = @"http://api.homesmartly.com";
+static NSString * const appKey = @"jdFYjuCqWyCdrywPT";
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, BeaconNotificationDelegate>
 

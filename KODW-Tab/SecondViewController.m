@@ -30,7 +30,7 @@
         rect = CGRectMake(0, 0, 320, 519);
     self.webView = [[UIWebView alloc] initWithFrame:rect];
     
-    NSString *url = [NSString stringWithFormat:@"%@/mobile/%@", mobileAddress, deviceId];
+    NSString *url = [NSString stringWithFormat:@"%@/app/%@/%@", mobileAddress, appKey, deviceId];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     
     [self.view addSubview:self.webView];

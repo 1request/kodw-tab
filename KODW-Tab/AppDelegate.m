@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 
-#define kRequestActivity @"/collectionapi/logs"
-#define kRequestMember @"/collectionapi/members"
+#define kRequestActivity @"/api/logs"
+#define kRequestMember @"/api/members"
 
 @interface AppDelegate ()
             
